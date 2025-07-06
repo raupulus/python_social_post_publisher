@@ -30,5 +30,5 @@ link_data_storage() {
     local DESTINY='/var/www/storage/app_python_social_post_publisher'
     local SCRIPT_PATH="${1}"
 
-    ln -s "${SCRIPT_PATH}/data" '/var/www/storage/app_python_social_post_publisher'
+    ln -s '/var/www/storage/app_python_social_post_publisher' "${SCRIPT_PATH}/data"
 }

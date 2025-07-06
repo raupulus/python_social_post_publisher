@@ -15,17 +15,10 @@ if [[ $(whoami) = 'root' ]]; then
 fi
 
 ## En caso de no encontrar archivos esenciales para la ejcución se aborta.
-if [[ ! -f "${WORKSCRIPT}/.env.example" ]] ||
-   [[ ! -d "${WORKSCRIPT}/deploy" ]] ||
+if [[ ! -d "${WORKSCRIPT}/deploy" ]] ||
    [[ ! -f "${WORKSCRIPT}/deploy/functions.sh" ]]; then
     echo 'Este script solo puede ser ejecutado desde la raíz del proyecto.'
     exit 1
-fi
-
-## En caso de existir un archivo .env se omiten operaciones.
-if [[ -f "${WORKSCRIPT}/.env" ]]; then
-    echo 'Ya existe un archivo .env en el proyecto, omitiendo operaciones.'
-    exit 0
 fi
 
 ################ Incluyo archivos de funciones ################
