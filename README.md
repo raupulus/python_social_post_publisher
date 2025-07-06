@@ -141,6 +141,18 @@ curl -X POST http://localhost:8080/publish \
   }'
 ```
 
+## Configuración
+
+Cada proyecto debe tener su propio archivo `.env` en el directorio `data/profiles/`. Por ejemplo, para un proyecto llamado "proyecto1", el archivo sería `data/profiles/proyecto1.env`.
+
+Consulta la documentación específica para cada red social en el directorio `docs/` para obtener instrucciones detalladas sobre cómo configurar cada plataforma.
+
+## Documentación
+
+- [Configuración de Mastodon](docs/mastodon.md)
+- [Configuración de Twitter](docs/twitter.md)
+- [Configuración de Telegram](docs/telegram.md)
+- [Configuración de Bluesky](docs/bluesky.md)
 
 ## Licencia
 
