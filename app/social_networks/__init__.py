@@ -70,9 +70,9 @@ class SocialNetwork(ABC):
         if title:
             formatted_content = f"{title}\n\n{formatted_content}"
 
-        # Añado hashtags si existen (convierto "tag" en "#tag" de lo recibido)
+        # Añado hashtags si existen
         if hashtags and len(hashtags) > 0:
-            hashtags_text = ' '.join([f"#{tag}" for tag in hashtags])
+            hashtags_text = ' '.join([f"{tag}" for tag in hashtags])
             formatted_content = f"{formatted_content}\n\n{hashtags_text}"
 
         return formatted_content
