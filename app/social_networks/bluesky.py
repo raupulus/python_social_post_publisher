@@ -56,8 +56,17 @@ class Bluesky(SocialNetwork):
             if not session:
                 return {'status': 'error', 'message': 'Error de autenticación en Bluesky'}
 
-            # Formatear contenido
-            formatted_content = self.format_content(content, title, hashtags)
+            # Verifico si el contenido supera el límite de caracteres (300 para Bluesky)
+            if len(content) > 300:
+                # Si supera el límite, solo envío el contenido truncado sin título ni hashtags
+                formatted_content = content[:297] + "..."
+            else:
+                # Si no supera el límite, formateo normalmente con título y hashtags
+                formatted_content = self.format_content(content, title, hashtags)
+
+                # Verifico si después de añadir título y hashtags supera el límite
+                if len(formatted_content) > 300:
+                    formatted_content = formatted_content[:297] + "..."
 
             # Subir imágenes si existen
             image_refs = []

@@ -123,8 +123,17 @@ class Telegram(SocialNetwork):
             # Inicializo bot de Telegram
             bot = telegram.Bot(token=bot_token)
 
-            # Formateo contenido
-            formatted_content = self.format_content(content, title, hashtags)
+            # Verifico si el contenido supera el límite de caracteres (4096 para Telegram)
+            if len(content) > 4096:
+                # Si supera el límite, solo envío el contenido truncado sin título ni hashtags
+                formatted_content = content[:4093] + "..."
+            else:
+                # Si no supera el límite, formateo normalmente con título y hashtags
+                formatted_content = self.format_content(content, title, hashtags)
+
+                # Verifico si después de añadir título y hashtags supera el límite
+                if len(formatted_content) > 4096:
+                    formatted_content = formatted_content[:4093] + "..."
 
             # Ejecuto la función asíncrona en un contexto síncrono
             response = asyncio.run(self._send_telegram_message(bot, chat_id, formatted_content, images))
