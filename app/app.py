@@ -16,6 +16,10 @@ from functions import process_hashtags, process_images, cleanup_images
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def health():
+    return {'status': 'healthy', 'message': 'Social Post Publisher running'}, 200
+
 @app.route('/publish', methods=['POST'])
 def publish():
     """
