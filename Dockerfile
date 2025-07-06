@@ -15,11 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libjpeg-dev \
     libpng-dev \
     libffi-dev \
+    curl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# Creo la estructura de directorios de datos
-RUN mkdir -p /app/data/profiles /app/data/temp
 
 # Copio el archivo de requisitos
 COPY requirements.txt .
@@ -27,8 +25,9 @@ COPY requirements.txt .
 # Instalo las dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copio los archivos del proyecto
-COPY . .
+# Copio solo app y docs (no data)
+COPY app/ ./app/
+COPY docs/ ./docs/
 
 # Creo un usuario no root para ejecutar la aplicación
 RUN useradd -m appuser && chown -R appuser:appuser /app

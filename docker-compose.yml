@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   publisher:
     build:
@@ -10,7 +8,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./data:/app/data
+      - /var/www/storage/app_python_social_post_publisher:/app/data
       - ./logs:/app/logs
     environment:
       - TZ=Europe/Madrid

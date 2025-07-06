@@ -41,6 +41,6 @@ echo ""
 #cat "${WORKSCRIPT}/.env"
 
 ## Enlazo almacenamiento con los perfiles
-link_data_storage "${WORKSCRIPT}"
+#link_data_storage "${WORKSCRIPT}"
 
 exit 0
