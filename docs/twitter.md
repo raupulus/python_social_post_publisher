@@ -70,7 +70,12 @@ Si encuentras problemas al publicar en Twitter:
 
 ## Notas importantes
 
-- Twitter ha cambiado sus políticas de API varias veces. Es posible que necesites una suscripción de pago para acceder a ciertas funcionalidades.
+- Twitter (X) ha cambiado significativamente sus políticas de API. La versión gratuita tiene acceso muy limitado.
+- Esta implementación utiliza un enfoque híbrido:
+  - API v1.1 para subir imágenes (disponible en el nivel gratuito)
+  - API v2 para publicar tweets (disponible en el nivel gratuito con limitaciones)
+- Si encuentras errores de acceso, es posible que necesites actualizar a un plan de pago de la API de Twitter.
+- El nivel gratuito tiene límites muy estrictos (actualmente 1,500 tweets/mes y 50 tweets/día).
 - Asegúrate de seguir las [Reglas de Twitter para desarrolladores](https://developer.twitter.com/en/developer-terms/policy) para evitar que tu aplicación sea suspendida.
 
 ## Recursos adicionales

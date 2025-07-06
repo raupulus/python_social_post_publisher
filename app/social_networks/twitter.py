@@ -51,12 +51,6 @@ class Twitter(SocialNetwork):
             return {'status': 'error', 'message': 'Faltan credenciales para Twitter'}
 
         try:
-            # Autentico con Twitter
-            auth = tweepy.OAuth1UserHandler(
-                api_key, api_secret, access_token, access_token_secret
-            )
-            api = tweepy.API(auth)
-
             # Verifico si el contenido supera el límite de caracteres (280 para Twitter)
             if len(content) > 280:
                 # Si supera el límite, solo envío el contenido truncado sin título ni hashtags
@@ -69,27 +63,46 @@ class Twitter(SocialNetwork):
                 if len(formatted_content) > 280:
                     formatted_content = formatted_content[:277] + "..."
 
+            # Uso la API v1.1 solo para subir imágenes (disponible en el nivel gratuito)
+            auth = tweepy.OAuth1UserHandler(
+                api_key, api_secret, access_token, access_token_secret
+            )
+            api_v1 = tweepy.API(auth)
+
             # Subo imágenes si existen
             media_ids = []
             if images and len(images) > 0:
                 for img_path in images:
-                    media = api.media_upload(img_path)
+                    media = api_v1.media_upload(img_path)
                     media_ids.append(media.media_id)
+
+            # Uso la API v2 para publicar el tweet
+            client = tweepy.Client(
+                consumer_key=api_key,
+                consumer_secret=api_secret,
+                access_token=access_token,
+                access_token_secret=access_token_secret
+            )
 
             # Publico tweet
             if media_ids:
-                response = api.update_status(
-                    status=formatted_content,
+                response = client.create_tweet(
+                    text=formatted_content,
                     media_ids=media_ids
                 )
             else:
-                response = api.update_status(formatted_content)
+                response = client.create_tweet(
+                    text=formatted_content
+                )
+
+            # Extraigo el ID del tweet de la respuesta de la API v2
+            tweet_id = response.data['id']
 
             return {
                 'status': 'success',
                 'message': 'Publicado correctamente en Twitter',
-                'post_id': response.id,
-                'url': f"https://twitter.com/user/status/{response.id}"
+                'post_id': tweet_id,
+                'url': f"https://twitter.com/user/status/{tweet_id}"
             }
 
         except Exception as e:
