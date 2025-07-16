@@ -6,7 +6,7 @@ services:
     container_name: social_post_publisher
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     volumes:
       - /var/www/storage/app_python_social_post_publisher:/app/data
       - ./logs:/app/logs
